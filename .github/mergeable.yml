@@ -1,0 +1,14 @@
+version: 2
+mergeable:
+
+  # 检查提交或者 issue 是否过期
+  - when: schedule.repository
+    name: '提案期效检查'
+    validate:
+      - do: stale
+        days: 15
+        type: pull_request, issues
+    pass:
+      - do: comment
+        payload:
+          body: 已超过 15 天未更新，请负责人检查该提案。如需继续处理，请留言更新状态。
